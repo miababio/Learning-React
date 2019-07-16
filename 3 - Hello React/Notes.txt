@@ -1,0 +1,53 @@
+                                                        NOTES
+                                                        -----
+Indecision App
+--------------
+
+Setting up a Web Server
+    - live-server with npm
+
+Hello React
+    - Going to define a template, and then render it in the <body> of our index.html page
+    - For now, use React by the CDN (<script>)
+    - React can be used in many different contexts, such as react-vr for VR development, react-native, etc.
+        - Each package gets installed separately
+        - We're using react-dom -> Let's us render our React template to the browser
+    - If you run live-server and check DevTools console, we now have access to the React and ReactDOM objects
+    - JSX = Javascript XML
+        - Javascript syntax extension - not part of the core language. It is provided by React
+            - Other example of extending languages you might be familiar with -> CSS (SCSS, LESS)
+        - In app.js -> var template = <p>This is JSX from app.js!</p>
+            - Looks weird, but this is your first JSX static template, congrats!
+
+        - var appRoot = document.getElementById('app');
+          ReactDOM.render(template, appRoot);
+
+            - ReactDOM.render(<template you want to render>, <element you want to render the template on>)
+                - Used to render our template, as you can see
+        - If you try to now run index.html in the browser, you get an "Unexpected token <" error - what gives??
+            - Remember, JSX is NOT part of Javascript's core; It is an extension. That means that the browser doesn't understand html tags in your *js file!
+        - To solve this, we need to convert our JSX code to JS code. We do this with Babel
+            - We'll compile our JSX to JS, as well as compile it to ES5 code. We'll still be able to code in JSX, and let Babel do the work
+            - So -> var template = <p>This is JSX from app.js!</p> now translates to -> var template = React.createElement("p", null, "This is JSX from app.js!");
+                - React.createElement(<tag>, <attributes (object form)>, <content in tag>);
+                    - Ex: React.createElement("h1", { id: "someId" }, "Something new"); -> <h1 id="someId">Something new</h1>
+                - This is something the browser understands
+
+Setting Up Babel
+    -
+
+Exploring JSX
+    - 
+
+
+
+
+
+
+
+
+                                            EXAMPLES
+                                            --------
+
+Example 1 - 
+---------
