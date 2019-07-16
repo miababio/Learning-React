@@ -34,7 +34,16 @@ Hello React
                 - This is something the browser understands
 
 Setting Up Babel
-    -
+    - babel-cli@6.24.1
+    - yarn init -> exactly like npm init
+    - yarn.lock -> exactly like package-lock
+    - Made a src/app.js file
+        - This is where we will write our JSX code
+        - Then, the babel compiled code will go into scripts/app.js, which index.html will look at in order to render everything on the page
+    - babel src/app.js --out-file=public/scripts/app.js --presets=env,react
+        - babel <file we want to compile> <file we want to dump our compiled code to> <any presets we want to use for the compilation process>
+        - Calling the command changed the code in scripts/app.js!
+        - You can add --watch to the previous command to automatically have changed compiled into scripts/app.js
 
 Exploring JSX
     - 
