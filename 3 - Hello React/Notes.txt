@@ -46,6 +46,25 @@ Setting Up Babel
         - You can add --watch to the previous command to automatically have changed compiled into scripts/app.js
 
 Exploring JSX
+    - Let's add more info besides our <h1> tag -> var template = <h1>Indecision App</h1><p>This is some info</p>;
+    - If we try to compile the code we now get an error -> "JSX expressions must have one parent element"
+        - Just like Vue with templates, with JSX, you can only have ONE root element, not two!
+        - Solution: Surround everything in a <div> -> var template = <div><h1>Indecision App</h1><p>This is some info</p></div>;
+            - You can put the code on new lines, save the file, and see that nothing changes in the browser. Babel understands that formatting:
+                - var template =
+                    <div>
+                        <h1>Indecision App</h1>
+                        <p>This is some info</p>
+                    </div>;
+            - The formatting can look a little wonky though. Total preference, but you can add parentheses in the beginning and end if you want:
+                - var template = (
+                    <div>
+                        <h1>Indecision App</h1>
+                        <p>This is some info</p>
+                    </div>
+                  )
+
+JSX Expressions
     - 
 
 
