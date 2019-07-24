@@ -65,6 +65,40 @@ Exploring JSX
                   )
 
 JSX Expressions
+    - <h1>Michael Ababio</h1>
+        - Right now, this is statically defined. The only way to change this name is to go in the JSX file and manually change it
+        - We want to replace it with a variable, so we can dynamically change the name
+            - Just like Vue, etc.
+
+    - var userName = 'Andrew';
+      <h1>{userName}</h1>
+
+        - Notice how we only use ONE set of curly braces
+        - You can put any Javascript expression in there (again, like Vue, etc.)
+        - Ex: var userName = 'Michael';
+              var userAge = 26;
+              var userLocation = 'Madison';
+              var templateTwo = (
+                  <div>
+                      <h1>{userName}</h1>
+                      <p>Age: {userAge}</p>
+                      <p>Location: {userLocation}</p>
+                  </div>
+              ); 
+
+        - What about objects??
+            - var user = {
+                name: 'Michael',
+                age: 26,
+                location: 'Madison'
+              }
+              <h1>{user}</h1> // Throws an error!
+
+            - We get an error in the console that 'Objects are not valid as a React child'
+            - Basically, React doesn't know how you want to render an object itself
+                - You can still use an object's keys though -> <h1>{user.name}</h1> // This works!
+
+Conditional Rendering in JSX
     - 
 
 
