@@ -1,71 +1,52 @@
 'use strict';
 
-console.log('App.js is running!');
+// arguments object - no longer bound w/ arrow functions
 
-// Challenge
-var app = {
-    title: 'Indecision App',
-    subtitle: 'Put your life in the hands of a computer'
+// ES5
+var add = function add(a, b) {
+    console.log(arguments);
+    return a + b;
 };
+console.log(add(55, 1, 1001));
 
-// JSX - Javascript XML
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        app.title
-    ),
-    React.createElement(
-        'p',
-        null,
-        app.subtitle
-    ),
-    React.createElement(
-        'ol',
-        null,
-        React.createElement(
-            'li',
-            null,
-            'Item one'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'Item two'
-        )
-    )
-);
+// ES6
+// const add = (a, b) => {
+//     console.log(arguments); // Error! arguments is not defined!
+//     return a + b;
+// };
+// console.log(add(55, 1, 1001));
+
+// this keyword - no longer bound w/ arrow functions
 
 var user = {
     name: 'Michael',
-    age: 26,
-    location: 'Madison'
+    cities: ['Madison', 'Platteville', 'Rothbury'],
+    printPlacesLived: function printPlacesLived() {
+        var _this = this;
+
+        return this.cities.map(function (city) {
+            return _this.name + ' has lived in ' + city;
+        });
+    }
 };
 
-var templateTwo = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        user.name
-    ),
-    React.createElement(
-        'p',
-        null,
-        'Age: ',
-        user.age
-    ),
-    React.createElement(
-        'p',
-        null,
-        'Location: ',
-        user.location
-    )
-);
+console.log(user.printPlacesLived());
 
-var appRoot = document.getElementById('app');
+// Challenge area
 
-ReactDOM.render(template, appRoot);
+var multiplier = {
+    // numbers array to multiply
+    // multiplyBy - single number
+    // multiply - method return new array where numbers have been multiplied
+    numbers: [1, 2, 3],
+    multiplyBy: 2,
+    multiply: function multiply() {
+        var _this2 = this;
+
+        return this.numbers.map(function (number) {
+            return number * _this2.multiplyBy;
+        });
+    }
+};
+
+console.log(multiplier.multiply());

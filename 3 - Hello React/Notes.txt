@@ -99,8 +99,115 @@ JSX Expressions
                 - You can still use an object's keys though -> <h1>{user.name}</h1> // This works!
 
 Conditional Rendering in JSX
-    - 
+    - If statements, ternary, logical AND, OR, etc. are still the same
+    - One neat thing to note: Remember that you use one set of curly braces to do a Javascript expression? You can also include tags in them!
+        - Ex: {<h3>My h3</h3>}
+            - This is helpful because you can create a function that could return the whole template tag in it if you wanted to
+        - Note: If a Javascript expression returns undefined, the JSX does NOT return/show anything at all
+            - It's as if you called 'display: none' on an element-it's just gone, and not on the DOM
+            - undefined, null, and boolean values are IGNORED in JSX {true/false}, {null}, {undefined} // All of these will render nothing on the screen
+    - Logical AND
+        - Remember it's different in Javascript!
 
+            - Ex: true && 'Some age' -> Returns 'Some Age'
+                  false && 'Some age -> returns false
+
+                - And since JSX doesn't render false values, if it's false it wont render anything
+
+ES6 Aside: const and let
+    - As expected, block level scoping; Try to avoid var
+
+ES6 Aside: Arrow Functions (Parts I and II)
+    - All arrow functions are anonymous; You can't 'name' an arrow function. The only way to reference it is to store it in a variable
+        - Ex: const square = (x) => { return x * x; };
+    - Arguments object is longer bound with arrow functions
+        - // ES5
+          const add = function(a, b) {
+              console.log(arguments);
+              return a + b;
+          };
+          console.log(add(55, 1));
+
+          - With ES5, you could explicitly state your parameters like normal and be fine, but you also have access to the special 'arguments' object
+          - I could change console.log to be -> console.log(add(55, 1, 1001));, and if i inspected the arguments object, it would have [55, 1, 1001, callee: {...}, etc.]
+            - So basically it will show even anonymous amount of arguments
+        - We no longer get access to this object with arrow functions
+            - const add = (a, b) => {
+                console.log(arguments);     // Error! 'arguments' is not defined!
+                return a + b;
+            };
+            console.log(add(55, 1, 1001));
+
+    - The 'this' keyword is no longer bound to arrow functions either!
+        - // ES5
+          const user = {
+              name: 'Michael',
+              cities: ['Madison', 'Platteville', 'Rothbury'],
+              printPlacesLived: function() {
+                  console.log(this.name);
+                  console.log(this.cities);
+              }
+          };
+
+          user.printPlacesLived();
+
+            - If you look at the console, you'll notice that this.name and this.cities both prints out the correct values
+            - That means that within the object, if this is in a value of a property, or a function value of a property, this can still access all of the object's values
+
+            - What happens if we change it to this??
+                - printPlacesLived: function() {
+                  console.log(this.name);
+                  console.log(this.cities);
+  
+                  this.cities.forEach(function(city) {
+                      console.log(this.name + ' has lived in ' + city); // Ruh Roh!
+                  });
+                  ...
+                  user.printPlacesLived();
+              }
+
+                - We get an ERROR! - It says this.name is not defined in our forEach loop!
+                - 'this' is not bound to anything in our anonymous function, so it is set to undefined
+
+            - Now, there have been workarounds for this already used in the past, such as
+                - creating a 'that' variable
+                    - printPlacesLived: function() {
+                      const that = this;
+                      this.cities.forEach(function(city) {
+                          console.log(that.name + ' has lived in ' + city);
+                      });
+                  }
+                  ...
+                  user.printPlacesLived();
+
+                    - Using 'that' allows you to have access to your object properties, even in nested functions
+
+        - With ES6, arrow functions no longer bind their own 'this' value. Instead, they use the 'this' value of the context they were created in
+            - So if we changed the forEach loop to an arrow function, it would use its parent's 'this'
+            - printPlacesLived: function() {
+                  this.cities.forEach((city) => {
+                      console.log(this.name + ' has lived in ' + city);
+                  });
+              } // This WORKS!
+        - BUT!! Keep in mind that we DON'T always want this kind of functionality either!
+            - Ex: On methods for instance - what if we made printPlacesLived an arrow function?
+                - printPlacesLived: () => {
+                      this.cities.forEach((city) => { // "Uncaught TypeError: Cannot read property 'cities' of undefined"
+                          console.log(this.name + ' has lived in ' + city);
+                      });
+                  }
+                
+                    - We're getting undefined because remember-this arrow function doesn't bind its own 'this' value, so it's no longer equal to the object it's in;
+                      It takes the 'this' from it's parent. Since the parent's scope is the global scope, 'this.cities' is undefined
+
+                    - If you want to use the 'this', you HAVE to use an ES5 function -> printPlacesLived: function() {...}
+
+        - printPlacesLived() {...}
+            - ES6 shorthand for an ES5 syntax (printPlacesLived: function(){...})
+            - Still let's us access 'arguments'
+            - Still let's us have our 'this' binding
+
+        - 
 
 
 
