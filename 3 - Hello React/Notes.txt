@@ -207,7 +207,41 @@ ES6 Aside: Arrow Functions (Parts I and II)
             - Still let's us access 'arguments'
             - Still let's us have our 'this' binding
 
-        - 
+Events and Attributes
+    - Some attributes work the same like they do in HTML, but there are some that have been renamed
+        - Ex: const templateTwo = (
+                  <div> 
+                      <h1>Count: {count}</h1>
+                      <button id="my-id" class="button">+1</button> // id = OK, class = ERROR!
+                  </div>
+              );
+
+        - Some that are okay
+            - id
+        - Some that are NOT okay (or have been renamed)
+            - 'class' 
+                - now 'className', BUT if you inspect an element in HTML, it still shows as 'class' (get used to it kid...)
+                    - This is because 'class' is a reserved word (for making classes..doy), remember you're making templates in a JSX file, not an HTML one!
+        - You can see a full list of supported/changed attributes at https://reactjs.org/docs/dom-elements.html
+            - Supported HTML attributes are now camelCase when using them!
+    - You can also use a Javascript expression to set an attribute property, like 'id'
+
+        - Ex:  const someId = 'myIdHere';
+               <button id={someId} className="button">+1</button>
+
+            - Just like Vue
+
+    - Events
+        - Similar to Vue
+        - We're adding a custom event attribute to an element (onClick, etc)
+        - See Example 1
+            - If we wanted to, remember that just like referencing a variable (like {count}), we could put the arrow function in directly
+                - Ex: <button onClick={() => {
+                          console.log('some value here');
+                      }}>+1</button>
+
+- Manual Data binding
+    - 
 
 
 
@@ -218,5 +252,18 @@ ES6 Aside: Arrow Functions (Parts I and II)
                                             EXAMPLES
                                             --------
 
-Example 1 - 
+Example 1 - Adding an Event
+---------
+const addOne = () => {
+    console.log('addOne');
+};
+const templateTwo = (
+    <div>
+        <h1>Count: {count}</h1>
+        <button onClick={addOne}>+1</button>
+    </div>
+);
+
+
+Example 2 -
 ---------
