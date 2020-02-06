@@ -240,7 +240,30 @@ Events and Attributes
                           console.log('some value here');
                       }}>+1</button>
 
-- Manual Data binding
+Manual Data Binding
+    - let count = 0;
+      const addOne = () => {
+          count++;
+          console.log('addOne', count);
+      };
+      const templateTwo = (
+          <div>
+              <h1>Count: {count}</h1>
+              <button onClick={addOne}>+1</button>
+          </div>
+      );
+    
+        - If you look at the console log, count is incrementing like it should be, but the html isn't changing! Why?
+        - JSX does NOT have native data binding!!
+            - Our template variable is rendered before anything is made. addOne is a static function, and on creation, count is set to 0
+        - We need to run our code in templateTwo, and the ReactDOM.render(templateTwo, appRoot) line again to see the data change
+            - Normally, we'd use React components to do this..but for now:
+                - See Example 2
+                    - This is basically an idea of how React does this behind the scenes
+                    - Keep in mind that this is a horribly inefficient way to re-render on the screen-React is way more efficient in doing this
+                        - It has a virtual DOM algorithms in place to determine the least amount of changes made in order to render/re-render new stuff in our application
+
+Forms and Inputs
     - 
 
 
@@ -265,5 +288,31 @@ const templateTwo = (
 );
 
 
-Example 2 -
+Example 2 - Re-rendering our count w/ a function
+---------
+let count = 0;
+const addOne = () => {
+    count++;
+    renderCounterApp(); // constant re-render
+};
+
+const appRoot = document.getElementById('app');
+
+const renderCounterApp = () => {
+    const templateTwo = (
+        <div>
+            <h1>Count: {count}</h1>
+            <button onClick={addOne}>+1</button>
+            <button onClick={minusOne}>-1</button>
+            <button onClick={reset}>Reset</button>
+        </div>
+    );
+
+    ReactDOM.render(templateTwo, appRoot);
+};
+
+renderCounterApp(); // Initial render
+
+
+Example 3 -
 ---------
