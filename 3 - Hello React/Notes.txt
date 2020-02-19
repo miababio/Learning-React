@@ -264,7 +264,65 @@ Manual Data Binding
                         - It has a virtual DOM algorithms in place to determine the least amount of changes made in order to render/re-render new stuff in our application
 
 Forms and Inputs
-    - 
+    - Say we have the following:
+    
+        -  <form>
+                <input type="text" name="option"/>
+                <button>Add Option</button>
+           </form>
+
+    - If you type something into the textbox and hit Enter (or the add option button), what happens?
+        - The whole page reloads, and the text we put in the textbox gets added to the url! (http://127.0.0.1:8080/?option=test)
+        - We don't want that to happen; In the past, that was a thing to help with server stuff, but no more (it's 2020 y'all...)
+    - Let's use Events!
+        - Putting an event on a <form> tag (onClick, etc.)
+            - We'll use 'onSubmit' to handle when you submit something within the form
+            - Events in React can also be known as 'Synthetic Events'
+        - See Example 3
+            - e.preventDefault();
+            - preventDefault() is the method that stops the page from reloading/adding it's submission text into the URL - I get it now!
+            - <form onSubmit={onFormSubmit}>
+                - We don't call onFormSubmit(), with the parentheses, because that means we would get the return value of the method, and right now, it would return undefined
+                    - It's the equivalent of writing <form onSubmit={undefined}>
+                    - that's why we call it like it is-we just want to call a REFERENCE to the function
+
+Arrays in JSX
+    - Works out of the box
+    - You can render numbers, strings, booleans, null, and undefined in Arrays
+        - You CANNOT do objects! - remember...Objects are NOT supported out of the box in JSX!
+    - <div>
+        {
+            [99, 98, 97]
+        }
+      </div>
+    
+        - When you render this to the screen, you get 999897
+            - JSX renders array values side-by-side
+            - This is the equivalent of writing {99}{98}{97}
+                - This is actually what's happening behind the scenes when JSX is rendering your array
+    - Normally, we can render JSX in JSX
+        - Ex: {<p>1</p>} // Would render '1' to the screen
+    - But, can you render an array of JSX in JSX?....YES!
+        - Ex: {
+                [<p>A</p>, <p>B</p>, <p>C</p>] // Renders A, B, and C in different lines, as <p> tags
+              }
+
+            - Hold on now! You'll notice we get an error in the console - "Warning: Each child in an array or iterator should have a unique "key" prop"
+                - Arrays in JSX don't know how to re-render themselves
+                    - Adding a key helps JSX optimize the rendering process, to figure out what small parts are needed/not needed for re-rendering
+                    - Ex: { [<p key="1">A</p>, <p key="2">B</p>, <p key="3">C</p>] }
+    - Converting our ordered list to be dynamic
+        - <ol>
+              {app.options.map((item) => <li key={item}>{item}</li>)}
+          </ol> 
+
+Picking an Option
+    - <button disabled={app.options.length === 0} onClick={onMakeDecision}>What should I do?</button>
+    - const onMakeDecision = () => {
+          const randomNum = Math.floor(Math.random() * app.options.length);
+          const option = app.options[randomNum];
+          alert(option);
+      };  
 
 
 
@@ -314,5 +372,19 @@ const renderCounterApp = () => {
 renderCounterApp(); // Initial render
 
 
-Example 3 -
+Example 3 - Event Handling in a Form
 ---------
+const template = (
+    <div>
+        <form onSubmit={onFormSubmit}>
+            <input type="text" name="option"/>
+            <button>Add Option</button>
+        </form>
+    </div>
+);
+
+const onFormSubmit = (e) => {
+    e.preventDefault();
+
+    console.log('form submitted!');
+};
