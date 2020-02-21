@@ -1,0 +1,19 @@
+{
+  "name": "indecision-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Michael Ababio",
+  "license": "MIT",
+  "scripts": {
+    "dev": "live-server public/",
+    "watch": "babel src/playground/es6-classes-1.js --out-file=public/scripts/app.js --presets=env,react --watch"
+  },
+  "dependencies": {
+    "babel-preset-env": "1.5.2",
+    "babel-preset-react": "6.24.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.18.0"
+  }
+}

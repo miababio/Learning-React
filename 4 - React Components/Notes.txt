@@ -1,0 +1,70 @@
+                                                        NOTES
+                                                        -----
+Indecision App
+--------------
+
+ES6 Classes: Part I
+    - class Person {
+          constructor(name = 'Anonymous') {
+              this.name = name;
+          }
+      }
+        - You are telling the class that "This unique instance of this class's name = whatever was passed in (name in this case)
+
+ES6 Classes: Part II
+    - Inheritance, overriding parent methods, double-bangs -> See Example 1
+
+Creating a React Component
+    - 
+
+
+
+
+
+
+                                            EXAMPLES
+                                            --------
+
+Example 1 - Inheritance, Overriding, Double-bangs
+---------
+class Person {
+
+    constructor(name = 'Anonymous', age = 0) {
+        this.name = name;
+        this.age = age;
+    }
+    getGreeting() {
+        return `Hi. I am ${this.name}!`;
+    }
+    getDescription() {
+        return `${this.name} is ${this.age} year(s) old.`;
+    }
+}
+
+class Student extends Person {
+
+    constructor(name, age, major) {
+        super(name, age);
+        this.major = major;
+    }
+    hasMajor() {
+        return !!this.major;
+    }
+    getDescription() {
+        let description = super.getDescription();
+        if(this.hasMajor()) {
+            description += ` Their major is ${this.major}.`;
+        }
+        return description;
+    }
+}
+
+const me = new Student('Michael Ababio', 26, 'CompSci');
+console.log(me.getDescription());       // Displays 'Michael Ababio is 26 year(S) old. Their major is CompSci.'
+
+const other = new Student();
+console.log(other.getDescription());    // Displays 'Anonymous is 0 year(s) old.'
+
+
+Example 2 -
+---------
