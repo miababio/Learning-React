@@ -15,7 +15,19 @@ ES6 Classes: Part II
     - Inheritance, overriding parent methods, double-bangs -> See Example 1
 
 Creating a React Component
+    - Is ultimately just an ES6 class
+    - See Example 2
+        - When we want to convert an ES6 class to a React component, we extend React.Component
+            - Globally, the two things from REact we can always extend is React itself, and then the ReactDOM
+        - Every React Component MUST implement a special method called 'render()'
+        - In our 'jsx' variable, we render our component by calling the class name in its own tag
+            - Looks like a custom HTML tag
+    - Class names MUST be uppercase
+        - It's what helps React differentiate between a React component and an HTML element
+
+Nesting Components
     - 
+        
 
 
 
@@ -66,5 +78,23 @@ const other = new Student();
 console.log(other.getDescription());    // Displays 'Anonymous is 0 year(s) old.'
 
 
-Example 2 -
+Example 2 - Our First React Component
+---------
+class Header extends React.Component {
+    render() {
+        return <p>This is from Header</p>;
+    }
+}
+
+const jsx = (
+    <div>
+        <h1>Title</h1>
+        <Header />
+    </div>
+);
+
+ReactDOM.render(jsx, document.getElementById('app'));
+
+
+Example 3 - 
 ---------
