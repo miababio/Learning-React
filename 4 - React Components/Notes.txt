@@ -15,10 +15,10 @@ ES6 Classes: Part II
     - Inheritance, overriding parent methods, double-bangs -> See Example 1
 
 Creating a React Component
-    - Is ultimately just an ES6 class
+    - It's ultimately just an ES6 class
     - See Example 2
         - When we want to convert an ES6 class to a React component, we extend React.Component
-            - Globally, the two things from REact we can always extend is React itself, and then the ReactDOM
+            - Globally, the two things from React we can always extend is React itself, and then the ReactDOM
         - Every React Component MUST implement a special method called 'render()'
         - In our 'jsx' variable, we render our component by calling the class name in its own tag
             - Looks like a custom HTML tag
@@ -26,8 +26,66 @@ Creating a React Component
         - It's what helps React differentiate between a React component and an HTML element
 
 Nesting Components
+    - class IndecisionApp extends React.Component {
+          render() {
+              return (
+                  <div>
+                      <Header />
+                      <Action />
+                      <Options />
+                      <AddOption />
+                  </div>
+              );
+          }
+      }
+      ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
+
+Component Props
+    - Similar to setting attributes in HTML (id, class, etc)
+    - render() {
+          return (
+              <div>
+                  <Header title="Test value"/>
+              </div>
+          );
+      }
+        - How do we get access to our 'title' prop we're passing in??
+        - In our React Components, we have access to the 'this' keyword, just like we do in ES6 Classes
+            - 'this' has a property on it called props
+                - class Header extends React.Component {
+                    render() {
+                        console.log(this.props); // Using the above example, the console displays -> {title: "Test value"}
+                    }
+                }
+
+        - We can use variables outside of the render() method as well if we wanted to
+
+            - render() {
+                  const title = 'Indecision';
+                  const subtitle = 'Put your life in the hands of a computer';
+                  return (
+                      <div>
+                          <Header title={title} subtitle={subtitle}/>
+                      </div>
+                  );
+              }
+
+              class Header extends React.Component {
+                  render() {
+                      return (
+                          <div>
+                              <h1>{this.props.title}</h1>
+                              <h2>{this.props.subtitle}</h2>
+                          </div>
+                      );
+                  }
+              }  
+
+    - Passing props to multiple components
+        - See Example 3
+
+Events & Methods
     - 
-        
 
 
 
@@ -96,5 +154,55 @@ const jsx = (
 ReactDOM.render(jsx, document.getElementById('app'));
 
 
-Example 3 - 
+Example 3 - Passing Props to Multiple Components
+---------
+class IndecisionApp extends React.Component {
+    render() {
+        const title = 'Indecision';
+        const subtitle = 'Put your life in the hands of a computer';
+        const options = ['Thing one', 'Thing two', 'Thing four'];
+        return (
+            <div>
+                <Header title={title} subtitle={subtitle}/>
+                <Action />
+                <Options options={options}/>
+                <AddOption />
+            </div>
+        );
+    }
+}
+
+class Header extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>{this.props.title}</h1>
+                <h2>{this.props.subtitle}</h2>
+            </div>
+        );
+    }
+}
+
+class Options extends React.Component {
+    render() {
+        return (
+            <div>
+                {this.props.options.map((option) => <Option key={option} optionText={option}/>)}
+            </div>
+        );
+    }
+}
+
+class Option extends React.Component {
+    render() {
+        return (
+            <div>{this.props.optionText}</div>
+        );
+    }
+}
+
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
+
+
+Example 4 -
 ---------
